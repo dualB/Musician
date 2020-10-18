@@ -61,14 +61,14 @@ void loop()
   {
     proto.ecran.ecrire("Frere\nJacques", 2);                                                  // Afficher le titre de la chanson;
     musician.setMelody(&frereJacques); // Fournir la partition voulue;
-    afficherTempo()
+    afficherTempo();
     musician.play();                                                                          // Jouer la chanson.
   }
   if (proto.droite.isPressed()) //Si le bouton DROITE est appuyé
   {
     proto.ecran.ecrire("Au clair\nde la lune", 2);                                                              // Afficher le titre de la chanson;
     musician.setMelody(&auClairDeLaLune); // Fournir la partition voulue;
-    afficherTempo()
+    afficherTempo();
     musician.play();                                                                                            // Jouer la chanson.
   }
   if (proto.selection.isPressed()) //Si le bouton SELECTION est appuyé
