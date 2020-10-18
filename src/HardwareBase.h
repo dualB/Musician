@@ -1,5 +1,5 @@
-#ifndef DelBase_h
-#define DelBase_h
+#ifndef HardwareBase_h
+#define HardwareBase_h
 
 #define DEFAULT_BRIGHTNESS 100.0
 #include "Arduino.h"
