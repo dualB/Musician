@@ -1,12 +1,12 @@
-#ifndef Del_h
-#define Del_h
+#ifndef DelBase_h
+#define DelBase_h
 
-#include "DelBase.h"
+#define DEFAULT_BRIGHTNESS 100.0
 #include "Arduino.h"
 
 #ifdef ESP_PLATFORM
 
-#define FIRST_CHANNEL 0
+#define DEFAULT_CHANNEL 0
 
 #define PWM_MAX_CHANNEL 16
 #define PWM_FREQUENCY 5000 //Fréquence du PWM
@@ -14,23 +14,22 @@
 #define PWM_MAXIMUM_FACTOR 2.55
 
 #endif
-
 /******************************************************************************
 * Definitions
 ******************************************************************************/
-class Del : public DelBase
+class HardwareBase
 {
 public:
-    Del(int address);
+    HardwareBase(int address);
+
+    virtual void changeState(unsigned int, float){};
+
+    void noSound();
     int getAddress();
 
-#ifdef ESP_PLATFORM
-    int getChannel();
-#endif
 protected:
-    void changeState(bool, float);
-
 private:
+    bool _value;
     int _address;
 #ifdef ESP_PLATFORM
     int _channel;

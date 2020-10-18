@@ -2,52 +2,38 @@
 #define Musician_h
 
 #include "Melody.h"
-#include "Del.h"
+#include "HardwareBase.h"
+#include "TimeBase.h"
 
-#define DEFAULT_MINIMUM_LOUDNESS -4
+#define DEFAULT_MINIMUM_LOUDNESS 0
 #define DEFAULT_MAXIMUM_LOUDNESS 4
 
 /******************************************************************************
 * Definitions
 ******************************************************************************/
-class Musician: private Del
+class Musician : public TimeBase
 {
 
 public:
 	Musician(uint8_t);
 
-	void refresh();
+	void setMelody(Melody *);
+	bool updateMelody();
+	void restartMelody();
+	void noSound();
 
-	void play();
-	void setPlaying(bool);
-	bool isPlaying();
-	void stop();
-
-	void setPause(bool);
-	bool getPause();
-	
-	bool setTempo(int);
-	unsigned int getTempo();
-
-	void setLoudness(float);
-	float getLoudness();
-
-	void setScore(char *);
-
-
-protected:
-    void changeBuzzer(double freq, double brightness);
+	void setInstrumentLimit(int,int);
 
 private:
-	Melody _melody;
+	HardwareBase _hardwareBase;
+	Melody *_melody;
 	void noTone();
 
 	bool _playing;
 	bool _pausing;
 	unsigned long _startTime;
 	unsigned long _duree;
-	
-	
+	int _min,_max;
 };
 
 #endif

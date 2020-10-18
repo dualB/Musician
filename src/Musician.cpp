@@ -1,118 +1,34 @@
 #include "Musician.h"
 
-Musician::Musician(uint8_t address) : Del(address)
+Musician::Musician(uint8_t address) : _hardwareBase(address)
 {
-	stop();
+	setInstrumentLimit(DEFAULT_MINIMUM_LOUDNESS, DEFAULT_MAXIMUM_LOUDNESS);
 }
 
-bool Musician::setTempo(int tempo)
+void Musician::setMelody(Melody *melody)
 {
-	return _melody.setTempo(tempo);
-}
-unsigned int Musician::getTempo()
-{
-	return _melody.getTempo();
-	;
+	_melody = melody;
 }
 
-void Musician::refresh()
+void Musician::noSound()
 {
-	unsigned long now = millis();
-	if (_playing && !_pausing)
+	_hardwareBase.noSound();
+}
+
+void Musician ::setInstrumentLimit(int min, int max)
+{
+	_min = min;
+	_max = max;
+}
+bool Musician::updateMelody()
+{
+	if (_melody->hasNext())
 	{
-
-		if (now > _startTime + _duree)
-		{
-
-			if (_melody.hasNext())
-			{
-				_melody.next();
-				_startTime = millis();
-				_duree = _melody.getDuration();
-				changeBuzzer(_melody.getFrequency(), map(_melody.getLoudness(), DEFAULT_MINIMUM_LOUDNESS, DEFAULT_MAXIMUM_LOUDNESS, 0, 100));
-			}
-			else
-			{
-				stop();
-			}
-		}
-	}
-	else
-	{
-		noTone();
+		_melody->next();
+		_hardwareBase.changeState(_melody->getFrequency(), map(_melody->getLoudness(), -4, 4, _min, _max));
 	}
 }
-
-void Musician::setPlaying(bool playing)
+void Musician::restartMelody()
 {
-	if (playing)
-	{
-		play();
-	}
-	else
-	{
-		stop();
-	}
-}
-
-bool Musician::isPlaying()
-{
-	return _playing;
-}
-
-void Musician::play()
-{
-	if (_playing == false)
-	{
-		_melody.restart();
-		_startTime = millis();
-		_duree = 0;
-	}
-	_playing = true;
-	_pausing = false;
-}
-void Musician::setPause(bool value)
-{
-	_pausing = value;
-}
-bool Musician::getPause()
-{
-	return _pausing;
-}
-void Musician::stop()
-{
-	_playing = false;
-	_pausing = false;
-}
-void Musician::setScore(char *score)
-{
-	_melody.setScore(score);
-}
-
-void Musician::noTone()
-{
-	changeState(false, getBrightness());
-}
-
-void Musician::changeBuzzer(double frequency, double brightness)
-{
-
-#ifdef ESP_PLATFORM
-	setBrightness(brightness);
-	if (getChannel() >= 0)
-	{
-		if (frequency > 0)
-		{
-			ledcWriteTone(getChannel(), frequency);
-			changeState(true, getBrightness());
-		}
-		else
-		{
-			//ledcWriteTone(getChannel(), 1);
-			changeState(false, getBrightness());
-		}
-	}
-#else
-	analogWrite(getAddress(), frequency > 0 ? (brightness * 2.55) : 0.0);
-#endif
+	_melody->restart();
 }

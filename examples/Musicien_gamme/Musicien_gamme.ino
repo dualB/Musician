@@ -39,7 +39,7 @@ void loop() {
 
   musician.refresh(); //Permet d'actualiser l'état du musician. CETTE MÉTHODE EST OBLIGATOIRE EN DÉBUT DE LOOP(), IDÉALEMENT.
   
-  if (!musician.isPlaying()){ //Lorsque le musicianne joue plus:
+  if (!musician.isPlaying()){ //Lorsque le musician ne joue plus:
     musician.play(); //Faire jouer le musician.
   }
 
