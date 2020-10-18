@@ -17,19 +17,27 @@
    à 3.3V
 */
 
-//Appel de la bibliothèque qui contient les fonctions pour jouer des notes.
-#include <Musician.h>
-
 //Appel de la bibliothèque ProtoTGP pour faciliter le contrôle des boutons et de l'écran.
 #include <ProtoTGP.h>
 
-//Numéro de la broche sur laquelle est contrôlé le "buzzer".
-const uint8_t BROCHE_BUZZER = 12;
+//Appel de la bibliothèque qui contient les fonctions pour jouer des notes.
+#include <Musician.h>
 
+//Numéro de la broche sur laquelle est contrôlé le "buzzer".
+#define BROCHE_BUZZER  12
+#define CHANNEL 5
 //Déclaration de l'instance musiciandu type Musician
-Musician musician(BROCHE_BUZZER);
+
+
 
 ProtoTGP proto;
+
+Musician musician(BROCHE_BUZZER,CHANNEL);
+
+Melody frereJacques("(cdec)x2 (efg+)x2 ((gagf)-ec)x2 (cg_c+)x2");
+
+Melody auClairDeLaLune("( (cccde+dr ceddc+.r)x2 dddd a_+ a_ r d c (b a g+.r)_ cccde+dr ceddc+.r)*");
+
 void setup()
 {
   proto.begin();
@@ -42,24 +50,24 @@ void loop()
 
   if (proto.haut.isPressed() || proto.haut.isLongPressed()) //Si le bouton HAUT est appuyé ou appuyé longuement
   {
-    musician.setTempo(musician.getTempo() + 10); // Agmenter le tempo de 10;
+    musician.getMelody()->setTempo(musician.getMelody()->getTempo() + 10); // Agmenter le tempo de 10;
     afficherTempo();                             //Afficher le tempo;
   }
   if (proto.bas.isPressed() || proto.bas.isLongPressed()) //Si le bouton BAS est appuyé ou appuyé longuement
   {
-    musician.setTempo(musician.getTempo() - 10); // Diminuer le tempo de 10;
+    musician.getMelody()->setTempo(musician.getMelody()->getTempo() - 10); // Diminuer le tempo de 10;
     afficherTempo();                             //Afficher le tempo;
   }
   if (proto.gauche.isPressed()) //Si le bouton GAUCHE est appuyé
   {
     proto.ecran.ecrire("Frere\nJacques", 2);                                                  // Afficher le titre de la chanson;
-    musician.setScore("(cdec)x2 (efg+)x2 ((gagf)-ec)x2 (cg_c+)x2"); // Fournir la partition voulue;
+    musician.setMelody(&frereJacques); // Fournir la partition voulue;
     musician.play();                                                                          // Jouer la chanson.
   }
   if (proto.droite.isPressed()) //Si le bouton DROITE est appuyé
   {
     proto.ecran.ecrire("Au clair\nde la lune", 2);                                                              // Afficher le titre de la chanson;
-    musician.setScore("( (cccde+dr ceddc+.r)x2 dddd a_+ a_ r d c (b a g+.r)_ cccde+dr ceddc+.r)*"); // Fournir la partition voulue;
+    musician.setMelody(&auClairDeLaLune); // Fournir la partition voulue;
     musician.play();                                                                                            // Jouer la chanson.
   }
   if (proto.selection.isPressed()) //Si le bouton SELECTION est appuyé
@@ -77,6 +85,6 @@ static char tempoMsg[20];
 
 void afficherTempo() //routine pour afficher le tempo à l'écran.
 {
-  sprintf(tempoMsg, "Tempo : %d bpm  ", musician.getTempo()); //Formater le message.
+  sprintf(tempoMsg, "Tempo : %d bpm  ", musician.getMelody()->getTempo()); //Formater le message.
   proto.ecran.ecrire(tempoMsg);                             //Afficher le message sur l'écran.
 }
