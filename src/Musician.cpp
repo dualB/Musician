@@ -1,6 +1,10 @@
 #include "Musician.h"
 
-Musician::Musician(uint8_t address) : _hardwareBase(address)
+#ifdef ESP_PLATFORM
+Musician::Musician(int address, int channel) : _hardwareBase(address, channel)
+#else
+Musician::Musician(int address) : _hardwareBase(address)
+#endif
 {
 	setInstrumentLimit(DEFAULT_MINIMUM_LOUDNESS, DEFAULT_MAXIMUM_LOUDNESS);
 }
@@ -10,9 +14,38 @@ void Musician::setMelody(Melody *melody)
 	_melody = melody;
 }
 
+void Musician::setMelody(char *score, unsigned int tempo)
+{
+	_melody = new Melody(score, tempo);
+}
+
+Melody *Musician::getMelody()
+{
+	return _melody;
+}
+
 void Musician::noSound()
 {
 	_hardwareBase.noSound();
+}
+
+unsigned long Musician::getNextDuration()
+{
+	if (_melody != nullptr)
+	{
+		return _melody->getDuration();
+	}
+	return 0;
+}
+
+void Musician::setBreath(unsigned int breathDuration)
+{
+	_breathDuration = breathDuration;
+}
+
+unsigned int Musician::getBreath()
+{
+	return _breathDuration;
 }
 
 void Musician ::setInstrumentLimit(int min, int max)
@@ -22,13 +55,21 @@ void Musician ::setInstrumentLimit(int min, int max)
 }
 bool Musician::updateMelody()
 {
-	if (_melody->hasNext())
+	if (_melody != nullptr)
 	{
-		_melody->next();
-		_hardwareBase.changeState(_melody->getFrequency(), map(_melody->getLoudness(), -4, 4, _min, _max));
+		if (_melody->hasNext())
+		{
+			_melody->next();
+			_hardwareBase.changeState(_melody->getFrequency(), map(_melody->getLoudness(), -4, 4, _min, _max));
+			return true;
+		}
 	}
+	return false;
 }
 void Musician::restartMelody()
 {
-	_melody->restart();
+	if (_melody != nullptr)
+	{
+		_melody->restart();
+	}
 }

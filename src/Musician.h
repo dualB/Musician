@@ -6,8 +6,8 @@
 #include "TimeBase.h"
 
 #define DEFAULT_MINIMUM_LOUDNESS 0
-#define DEFAULT_MAXIMUM_LOUDNESS 4
-
+#define DEFAULT_MAXIMUM_LOUDNESS 16
+#define DEFAULT_BREATH_DURATION 5
 /******************************************************************************
 * Definitions
 ******************************************************************************/
@@ -15,14 +15,24 @@ class Musician : public TimeBase
 {
 
 public:
-	Musician(uint8_t);
-
+#ifdef ESP_PLATFORM
+	Musician(int, int);
+#else
+	Musician(int);
+#endif
 	void setMelody(Melody *);
+	void setMelody(char *,  unsigned int tempo );
+	Melody * getMelody();
 	bool updateMelody();
 	void restartMelody();
 	void noSound();
+	unsigned long getNextDuration();
 
-	void setInstrumentLimit(int,int);
+
+	void setBreath(unsigned int);
+	unsigned int getBreath();
+
+	void setInstrumentLimit(int, int);
 
 private:
 	HardwareBase _hardwareBase;
@@ -33,7 +43,8 @@ private:
 	bool _pausing;
 	unsigned long _startTime;
 	unsigned long _duree;
-	int _min,_max;
+	unsigned long _breathDuration;
+	int _min, _max;
 };
 
 #endif

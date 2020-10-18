@@ -23,15 +23,16 @@ void HardwareBase::noSound()
   changeState(0, 0);
 }
 
-void HardwareBase::changeState(unsigned int frequency, float loudness)
+void HardwareBase::changeState(unsigned int frequency, int loudness)
 {
 
 #ifdef ESP_PLATFORM
 
-  ledcWrite(_channel, frequency > 0 ? (int)(loudness * PWM_MAXIMUM_FACTOR) : 0.0);
+  ledcWriteTone(_channel, frequency);
+  ledcWrite(_channel, frequency > 0 ? loudness : 0.0);
 
 #else
-  analogWrite(_address, frequency > 0 ? (loudness * 2.55) : 0.0);
+  analogWrite(_address, frequency > 0 ? loudness : 0.0);
 
 #endif
 }

@@ -20,10 +20,12 @@
 class HardwareBase
 {
 public:
+#ifdef ESP_PLATFORM
+    HardwareBase(int address, int channel);
+#else
     HardwareBase(int address);
-
-    virtual void changeState(unsigned int, float){};
-
+#endif
+    void changeState(unsigned int, int);
     void noSound();
     int getAddress();
 

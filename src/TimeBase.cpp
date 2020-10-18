@@ -16,11 +16,20 @@ void TimeBase::refresh()
 			_startTime = millis();
 
 			bool answer = updateMelody();
-			if (!answer)
+			if (answer)
+			
+			{
+				_duree=getNextDuration();
+			}
+			else
 			{
 				noSound();
 				stop();
 			}
+		}
+		else if (now > _startTime + _duree - getBreath())
+		{
+			noSound();
 		}
 	}
 	else

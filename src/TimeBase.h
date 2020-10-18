@@ -23,8 +23,10 @@ public:
 	bool getPause();
 
 protected:
+	virtual unsigned long getNextDuration() = 0;
+	virtual unsigned int getBreath() { return 0; };
 	virtual bool updateMelody() = 0;
-	virtual void restartMelody() =0 ;
+	virtual void restartMelody() = 0;
 	virtual void noSound() = 0;
 
 private:
