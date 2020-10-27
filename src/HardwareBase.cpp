@@ -32,7 +32,14 @@ void HardwareBase::changeState(unsigned int frequency, int loudness)
   ledcWrite(_channel, frequency > 0 ? loudness : 0.0);
 
 #else
-  analogWrite(_address, frequency > 0 ? loudness : 0.0);
+  if (frequency > 0)
+  {
+    tone(_address, frequency);
+  }
+  else
+  {
+    noTone(_address);
+  }
 
 #endif
 }
