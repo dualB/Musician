@@ -21,17 +21,16 @@ public:
 	Musician(int);
 #endif
 	void setMelody(Melody *);
-	Melody * getMelody();
+	Melody *getMelody();
+	void setBreath(unsigned int);
+	unsigned int getBreath();
+	void setLoudnessLimit(int, int);
+
+protected:
 	bool updateMelody();
 	void restartMelody();
 	void noSound();
 	unsigned long getNextDuration();
-
-
-	void setBreath(unsigned int);
-	unsigned int getBreath();
-
-	void setInstrumentLimit(int, int);
 
 private:
 	HardwareBase _hardwareBase;

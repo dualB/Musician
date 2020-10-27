@@ -6,7 +6,7 @@ Musician::Musician(int address, int channel) : _hardwareBase(address, channel)
 Musician::Musician(int address) : _hardwareBase(address)
 #endif
 {
-	setInstrumentLimit(DEFAULT_MINIMUM_LOUDNESS, DEFAULT_MAXIMUM_LOUDNESS);
+	setLoudnessLimit(DEFAULT_MINIMUM_LOUDNESS, DEFAULT_MAXIMUM_LOUDNESS);
 }
 
 void Musician::setMelody(Melody *melody)
@@ -43,7 +43,7 @@ unsigned int Musician::getBreath()
 	return _breathDuration;
 }
 
-void Musician ::setInstrumentLimit(int min, int max)
+void Musician ::setLoudnessLimit(int min, int max)
 {
 	_min = min;
 	_max = max;
