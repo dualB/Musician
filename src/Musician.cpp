@@ -14,11 +14,6 @@ void Musician::setMelody(Melody *melody)
 	_melody = melody;
 }
 
-void Musician::setMelody(char *score, unsigned int tempo)
-{
-	_melody = new Melody(score, tempo);
-}
-
 Melody *Musician::getMelody()
 {
 	return _melody;
