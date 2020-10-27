@@ -21,17 +21,22 @@
 #include <Musician.h>
 
 //Numéro de la broche sur laquelle est contrôlé les "buzzers".
-const uint8_t BROCHE_BUZZER_A = 12;
-const uint8_t BROCHE_BUZZER_B = 15;
+#define BROCHE_BUZZER_A  12
+#define BROCHE_BUZZER_B  15
+#define CHANNEL_A 5
+#define CHANNEL_B 7
 
 //Déclaration de l'instance des musicians du type Musician
-Musician musicianA(BROCHE_BUZZER_A);
-Musician musicianB(BROCHE_BUZZER_B);
+Musician musicianA(BROCHE_BUZZER_A,CHANNEL_A);
+Musician musicianB(BROCHE_BUZZER_B,CHANNEL_B);
+
+Melody voiceA("(cdec)x2  (efg+)x2 ((gagf)-ec)x2  (cg_c+)x2",160); //Frère Jacques
+Melody voiceB(" (rx8  (cdec)x2  (efg+)x2 ((gagf)-ec)x2  (cg_c+)x2)",160); //Frère Jacques, décalé de 2 mesures
 
 void setup()
 {
-  musicianA.setScore("cdec cdec  efg2  efg2 g$a$g$f$ec   g$a$g$f$ec  c -g c2     c -g c2");                      //Frère Jacques
-  musicianB.setScore("ssss ssss  cdec  cdec efg2         efg2        g$a$g$f$ec  g$a$g$f$ec  c -g c2 c -g c2 "); //Frère Jacques, décalé de 2 mesures
+  musicianA.setMelody(&voiceA);                      
+  musicianB.setMelody(&voiceB); 
 
   musicianA.play();
   musicianB.play();
