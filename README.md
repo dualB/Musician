@@ -42,3 +42,4 @@ void setPause(bool value)
 bool getPause()
 ```
 Cette méthode permet de lire et modifier l'état de pause du musician. Lorsqu'il est en pause, l'état actif est toujours vrai (getPlaying() retourne TRUE), mais le musicianest en attente avant de jouer la prochaine note.
+
