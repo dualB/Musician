@@ -1,7 +1,7 @@
 # Librairie Musician
 
 ## Utilisation
-
+Doit être utilisé avec la librairie [Melody](https://github.com/dualB/Melody)
 
 ## Constructeurs
 ```cpp
