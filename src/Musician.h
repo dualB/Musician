@@ -21,7 +21,6 @@ public:
 	Musician(int);
 #endif
 	void setMelody(Melody *);
-	void setMelody(char *,  unsigned int tempo );
 	Melody * getMelody();
 	bool updateMelody();
 	void restartMelody();
