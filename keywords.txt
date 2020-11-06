@@ -13,20 +13,21 @@ Musician	KEYWORD1
 refresh	KEYWORD2
 
 play	KEYWORD2
-isPlaying	KEYWORD2
 stop	KEYWORD2
+
+isPlaying	KEYWORD2
+setPlaying	KEYWORD2
 
 setPause	KEYWORD2
 getPause	KEYWORD2
 	
-setTempo	KEYWORD2
-getTempo	KEYWORD2
+setLoudnessLimit	KEYWORD2
 
-setLoudness	KEYWORD2
-getLoudness	KEYWORD2
+setBreath	KEYWORD2
+getBreath	KEYWORD2
 
-setPartition	KEYWORD2
-getPartition	KEYWORD2
+setMelody	KEYWORD2
+getMelody	KEYWORD2
 #######################################
 # Constants (LITERAL1)
 #######################################
