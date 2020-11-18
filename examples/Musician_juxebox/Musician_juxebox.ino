@@ -1,9 +1,24 @@
+/*
+  Musician Jukebox
+
+  The musician will play a list of melodies, in loop.
+
+  by Claude Bouchard
+  November 2020
+*/
 #include "Melody.h"
 #include "Musician.h"
 
-#define PIN_BUZZER 12
+#define PIN_BUZZER 12 
 
-Musician musician(PIN_BUZZER);
+//The constructor depends on the architecture you use
+#ifdef ESP_PLATFORM
+  #define CHANNEL 9 
+  Musician musician(PIN_BUZZER, CHANNEL); 
+#else
+  Musician musician(PIN_BUZZER);
+#endif
+
 
 //Wolfgang Amadeus Mozart, Eine kleine Nachtmusik (KV 525)
 Melody mozartNachtmusik("g<<r-d- | g<< r-d-(g<dg<b)-d<*r | c*<<r-a-c*<<r-a- |(c*<af#<a)-d<r | (gr)- g. (bag | (gag)/3:1 f#)- f#. (ac*f# | ag)- g.  (bag | (gag)/3:1 f#)- f#. (ac*f#)- | ((grgr)-- (gf#ef#)--)>> ((grgr)-- (baga)--)> | (brbr)-- (d*c*bc*)-- d*< r | ((de)+  | (d-c.)-c (c-b_.)-  b_ | (( b-a.)- a (gf#ef# | (grarbr)>)- r )_)> ", 140);

@@ -1,13 +1,27 @@
+/*
+  Musician with limited memory
+
+  The musician will play one melody. You can un-comment other melodies if you want to hear them.
+
+  by Claude Bouchard
+  November 2020
+*/
 #include "Melody.h"
 #include "Musician.h"
 
-#define PIN_BUZZER 8
+#define PIN_BUZZER 12
 
-Musician musician(PIN_BUZZER);
+//The constructor depends on the architecture you use
+#ifdef ESP_PLATFORM
+  #define CHANNEL 9 
+  Musician musician(PIN_BUZZER, CHANNEL); 
+#else
+  Musician musician(PIN_BUZZER);
+#endif
 
 /*
  * Since the memory of smaller microcontrolers is limited, 
- * you habe to un-comment the melody you want to try, one at a time
+ * you have to un-comment the melody you want to hear, one at a time
  * 
 */
 
