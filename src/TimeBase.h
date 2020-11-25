@@ -15,6 +15,7 @@ public:
 	void refresh();
 
 	void play();
+	void playSync();
 	void setPlaying(bool);
 	bool isPlaying();
 	void stop();

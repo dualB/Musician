@@ -17,9 +17,9 @@ void TimeBase::refresh()
 
 			bool answer = updateMelody();
 			if (answer)
-			
+
 			{
-				_duree=getNextDuration();
+				_duree = getNextDuration();
 			}
 			else
 			{
@@ -66,6 +66,16 @@ void TimeBase::play()
 	_playing = true;
 	_pausing = false;
 }
+
+void TimeBase::playSync()
+{
+	TimeBase::play();
+	while (TimeBase::isPlaying())
+	{
+		TimeBase::refresh();
+	}
+}
+
 void TimeBase::setPause(bool value)
 {
 	_pausing = value;

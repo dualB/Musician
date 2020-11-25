@@ -52,6 +52,13 @@ void setPause(bool value)
 bool getPause()
 ```
 This method allows you to read and modify the pause state of the musician. When paused, the active state is still true (getPlaying () returns TRUE), but the musician is on hold before playing the next note.
+
+---
+```cpp
+bool playSync()
+```
+
+This method starts the playing of the melody; the execution of the code will be blocked until the melody is played in full.
 ---
 ```cpp
 void setLoudnessLimit(int min, int max)
@@ -118,6 +125,13 @@ void setPause(bool value)
 bool getPause()
 ```
 Cette méthode permet de lire et modifier l'état de pause du musician. Lorsqu'il est en pause, l'état actif est toujours vrai (getPlaying() retourne TRUE), mais le musicianest en attente avant de jouer la prochaine note.
+
+---
+```cpp
+bool playSync()
+```
+
+Cette méthode permet de démarrer la musique; l'éxécution du code sera bloqué jusqu'à ce que la mélodie soit joué au complet.
 
 ---
 ```cpp

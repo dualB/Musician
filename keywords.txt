@@ -13,6 +13,7 @@ Musician	KEYWORD1
 refresh	KEYWORD2
 
 play	KEYWORD2
+playSync	KEYWORD2
 stop	KEYWORD2
 
 isPlaying	KEYWORD2
