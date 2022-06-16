@@ -1,10 +1,11 @@
 #include "Musician.h"
 
 #ifdef ESP_PLATFORM
-Musician::Musician(int address, int channel) : _hardwareBase(address, channel)
+Musician::Musician(int address, int channel) : _hardwareBase(address, channel),
 #else
-Musician::Musician(int address) : _hardwareBase(address)
+Musician::Musician(int address) : _hardwareBase(address),
 #endif
+_melody(nullptr), _breathDuration(0), TimeBase()
 {
 	setLoudnessLimit(DEFAULT_MINIMUM_LOUDNESS, DEFAULT_MAXIMUM_LOUDNESS);
 }

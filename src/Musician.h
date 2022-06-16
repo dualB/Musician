@@ -37,10 +37,6 @@ private:
 	Melody *_melody;
 	void noTone();
 
-	bool _playing;
-	bool _pausing;
-	unsigned long _startTime;
-	unsigned long _duree;
 	unsigned long _breathDuration;
 	int _min, _max;
 };

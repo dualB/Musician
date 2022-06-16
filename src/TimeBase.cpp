@@ -1,6 +1,6 @@
 #include "TimeBase.h"
 
-TimeBase::TimeBase()
+TimeBase::TimeBase() : _playing(false), _pausing(false), _startTime(0), _duree(0)
 {
 	stop();
 }

@@ -31,7 +31,6 @@ public:
 
 protected:
 private:
-    bool _value;
     int _address;
 #ifdef ESP_PLATFORM
     int _channel;
